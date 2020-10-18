@@ -51,10 +51,10 @@ class UDPServer:
         try:
             # receive message from a client
 
-            data, client_address = self.sock.recvfrom(1024)
+            data, endereco = self.sock.recvfrom(1024)
             # handle client's request
 
-            self.handle_request(data, client_address)
+            self.handle_request(data, endereco)
         except OSError as err:
             self.printwt(err)
     def shutdown_server(self):

@@ -9,7 +9,7 @@ class serverUDP(udp_server.UDPServer):
         super().__init__(host,port)
         self.socket_lock = threading.Lock()
 
-    def handle_requests(self, data, endereco):
+    def handle_request(self, data, endereco):
         posicao = data
 
         self.printwt(f'[ O cliente {endereco} está na posição {posicao}]')
@@ -23,7 +23,7 @@ class serverUDP(udp_server.UDPServer):
             while True:
                 try:
                     cliente, endereco = self.sock.recvfrom(1024)
-                    c_thread = threading.Thread(target= self.handle_requests, args=(data,endereco))
+                    c_thread = threading.Thread(target= self.handle_requests, args=(cliente,endereco))
                     c_thread.daemon = True
                     c_thread.start()
                 except OSError as err:
