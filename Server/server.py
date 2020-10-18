@@ -9,7 +9,7 @@ class serverUDP(udp_server.UDPServer):
         super().__init__(host,port)
         self.socket_lock = threading.Lock()
 
-    def handle_requests(self, data, endereco):
+    def handle_request(self, data, endereco):
         posicao = data
 
         self.printwt(f'[ O cliente {endereco} está na posição {posicao}]')
