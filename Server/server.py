@@ -14,7 +14,7 @@ class serverUDP(udp_server.UDPServer):
 
         self.printwt(f'[ O cliente {endereco} está na posição {posicao}]')
 
-        resposta = f"você está na posição {posicao}"
+        resposta = '{"comando":"comando_","x":0,"y":0}'
         with self.socket_lock:
             self.sock.sendto(resposta.encode('utf-8'), endereco)
 
@@ -23,7 +23,7 @@ class serverUDP(udp_server.UDPServer):
             while True:
                 try:
                     cliente, endereco = self.sock.recvfrom(1024)
-                    c_thread = threading.Thread(target= self.handle_requests, args=(data,endereco))
+                    c_thread = threading.Thread(target= self.handle_requests, args=(cliente,endereco))
                     c_thread.daemon = True
                     c_thread.start()
                 except OSError as err:
