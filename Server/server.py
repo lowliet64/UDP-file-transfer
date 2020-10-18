@@ -2,6 +2,7 @@ import socket
 import threading
 import time
 import udp_server
+import json
 from datetime import datetime
 
 class serverUDP(udp_server.UDPServer):
@@ -10,20 +11,31 @@ class serverUDP(udp_server.UDPServer):
         self.socket_lock = threading.Lock()
 
     def handle_request(self, data, endereco):
-        posicao = data
+        posicao = json.loads(data)
 
-        self.printwt(f'[ O cliente {endereco} está na posição {posicao}]')
+        
 
-        resposta = '{"comando":"comando_","x":0,"y":0}'
+        if posicao['comand'] == 'up':
+            posicao['y'] += 1
+        elif posicao['comand'] == 'down':
+            posicao['y'] -= 1
+        elif posicao['comand'] == 'right':
+            posicao['x'] += 1
+        elif posicao['comand'] == 'left':
+            posicao['x'] -= 1
+        x = posicao['x']
+        y = posicao['y']
+        self.printwt(f'[ O cliente {endereco} está na posição X:{x} Y:{y}]')
+        
         with self.socket_lock:
-            self.sock.sendto(resposta.encode('utf-8'), endereco)
+            self.sock.sendto(json.dumps(posicao).encode("utf-8"), endereco)
 
     def receberClientes(self):
         try:
             while True:
                 try:
                     cliente, endereco = self.sock.recvfrom(1024)
-                    c_thread = threading.Thread(target= self.handle_requests, args=(cliente,endereco))
+                    c_thread = threading.Thread(target= self.handle_request, args=(cliente,endereco))
                     c_thread.daemon = True
                     c_thread.start()
                 except OSError as err:

@@ -29,7 +29,9 @@ def on_press(key):
                 msg = json.loads(msg.decode("utf-8"))
                 data['x'] =msg['x']
                 data['y'] =msg['y']
-                print(type(msg), msg)
+                x = data['x']
+                y = data['y']
+                print(f'[ Você está na posição X:{x} Y:{y}]')
             except:
                 print("pacote corrompido") 
                     
@@ -44,7 +46,9 @@ def on_press(key):
                 msg= json.loads(msg.decode("utf-8"))
                 data['x'] =msg['x']
                 data['y'] =msg['y']
-                print(type(msg), msg)
+                x = data['x']
+                y = data['y']
+                print(f'[ Você está na posição X:{x} Y:{y}]')
             except:
                 print("pacote corrompido") 
         
@@ -59,7 +63,9 @@ def on_press(key):
                 msg = json.loads(msg.decode("utf-8"))
                 data['x'] =msg['x']
                 data['y'] =msg['y']
-                print(type(msg), msg)
+                x = data['x']
+                y = data['y']
+                print(f'[ Você está na posição X:{x} Y:{y}]')
             except:
                 print("pacote corrompido") 
     elif(key==Key.right):
@@ -73,7 +79,9 @@ def on_press(key):
                 msg= json.loads(msg.decode("utf-8"))
                 data['x'] = msg['x']
                 data['y'] = msg['y']
-                print(type(msg), msg)
+                x = data['x']
+                y = data['y']
+                print(f'[ Você está na posição X:{x} Y:{y}]')
             except:
                 print("pacote corrompido") 
 
